@@ -29,7 +29,7 @@ const [isModalVisible, setIsModalVisible] = useState(false);
     setIsModalVisible(false);
   };
 
-        
+      
     const handleChange = (clor) => {setColor(clor)};
 
    
@@ -67,8 +67,10 @@ const [isModalVisible, setIsModalVisible] = useState(false);
               
             </>
         );
+       
     
 }
+
 
 
 export default ColorPicker;
