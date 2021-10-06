@@ -26,6 +26,7 @@ function beforeUpload(file) {
 
     
     
+    
     function handleChange(info) {
 
         if (info.file.status === 'uploading') {
@@ -66,6 +67,8 @@ function beforeUpload(file) {
         >
           {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
         </Upload>
+        
+        
       );
     
   }
