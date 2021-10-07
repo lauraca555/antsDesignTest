@@ -1,21 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {connect} from 'react-redux';
 import {PageHeader,Form, Button,  Row, Col, Input} from "antd";
 import AvatarOrg from '../shared/AvatarOrg';
+import { createOrganizationSuccess } from '../../actions/actionsOrg'
 import ColorPicker from '../shared/ColorPicker';
 
 
-const NewOrg = () => {
-
+const NewOrg = ({organizations = [], onCreatePressed}) => {
+	
+	const [inputValue, setInputValue] = useState([]);
+	
     const onFinish = (values) => {
-		console.log('Success:', values);		
+		console.log('Success:', values);
+		setInputValue(values);
+		console.log({organizations});
+				
 	};
 
 	const onFinishFailed = (errorInfo) => {
 		console.log('Failed:', errorInfo);
 	};
+	
 
+	
     return(
-        <>
+		<>
             <Row >
 					<Col  span={19} offset={5}>
 						<PageHeader
@@ -28,15 +37,15 @@ const NewOrg = () => {
 						<Form
 							name="organization-form"
 							labelCol={{
-							span: 6,
+								span: 6,
 							}}
 							wrapperCol={{
-							span: 18,
+								span: 18,
 							}}
 							onFinish={onFinish}
 							onFinishFailed={onFinishFailed}
 							autoComplete="off"
-						>
+							>
 							<Col justify="start"   span={20} offset={2} >
 							<fieldset>
 								<legend><h3>Informations générales</h3></legend>
@@ -52,7 +61,7 @@ const NewOrg = () => {
 											message: 'Ce champ est requis',
 										},
 									]}
-								>
+									>
 								<Input />										
 								</Form.Item>
 								
@@ -87,7 +96,7 @@ const NewOrg = () => {
 								<Form.Item								
 									label="Adresse"
 									name="adresse"
-								>
+									>
 									<Input />										
 								</Form.Item>
 
@@ -95,7 +104,7 @@ const NewOrg = () => {
 								<Form.Item								
 									label="Code postal"
 									name="zipcode"
-								>
+									>
 									<Input />										
 								</Form.Item>
 
@@ -103,7 +112,7 @@ const NewOrg = () => {
 								<Form.Item								
 									label="Ville"
 									name="city"
-								>
+									>
 									<Input />										
 								</Form.Item>
 
@@ -111,7 +120,7 @@ const NewOrg = () => {
 								<Form.Item								
 									label="Pays"
 									name="country"
-								>
+									>
 									<Input />										
 								</Form.Item>
 
@@ -122,12 +131,21 @@ const NewOrg = () => {
 									offset: 6,
 									span: 16,
 								}}
-							>
+								>
 								<div className="form-buttons">
-									<Button type="primary" htmlType="submit" className="one-form-button">
+									<Button 
+										onClick = {() =>{
+											setInputValue();
+											onCreatePressed(inputValue);
+											setInputValue([]);
+										}}
+										type="primary" 
+										htmlType="submit" className="one-form-button">
 										Valider
 									</Button>								
-									<Button  htmlType="submit" className="one-form-button">
+									<Button  
+										htmlType="submit" 
+										className="one-form-button">
 										Annuler
 									</Button>
 								</div>
@@ -139,4 +157,12 @@ const NewOrg = () => {
     )
 }
 
-export default NewOrg;
+const mapStateToProps = state => ({
+	organizations: state.organizations,
+});
+
+const mapDispatchToProps = dispatch => ({
+	onCreatePressed: organization => dispatch(createOrganizationSuccess(organization))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrg);
