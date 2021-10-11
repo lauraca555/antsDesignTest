@@ -1,5 +1,7 @@
-import {createStore, combineReducers } from 'redux';
+import {createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { organizations } from '../reducers/reducerOrg';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 const reducers = {
     organizations
@@ -9,4 +11,8 @@ const rootReducer = combineReducers(reducers);
 
 export const configureStore = () => createStore(
     
-    rootReducer);
+    rootReducer,
+    composeWithDevTools(
+        applyMiddleware(thunk)
+    ));
+    

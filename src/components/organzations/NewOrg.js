@@ -4,6 +4,7 @@ import {PageHeader,Form, Button,  Row, Col, Input} from "antd";
 import AvatarOrg from '../shared/AvatarOrg';
 import { createOrganizationSuccess } from '../../actions/actionsOrg'
 import ColorPicker from '../shared/ColorPicker';
+import { displayAlert } from '../../thunks/thunksOrganization';
 
 
 const NewOrg = ({organizations = [], onCreatePressed}) => {
@@ -162,7 +163,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onCreatePressed: organization => dispatch(createOrganizationSuccess(organization))
+	onCreatePressed: organization => dispatch(createOrganizationSuccess(organization)),
+	onDisplayAlertClicked: () => dispatch(displayAlert)
+
 });
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewOrg);
