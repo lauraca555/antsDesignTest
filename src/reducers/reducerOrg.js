@@ -1,6 +1,5 @@
 import { 
-    CREATE_ORGANIZATION_SUCCESS,
-    GET_CURRENT_ORGANIZATION
+    CREATE_ORGANIZATION_SUCCESS
  } from "./../actions/actionsOrg";
 
  

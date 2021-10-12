@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import {PageHeader,Form, Button,  Row, Col, Input} from "antd";
 import AvatarOrg from '../shared/AvatarOrg';
 import { createOrganizationSuccess } from '../../actions/actionsOrg'
 import ColorPicker from '../shared/ColorPicker';
-import { displayAlert } from '../../thunks/thunksOrganization';
 
+	
+		
 
-const NewOrg = ({organizations = [], onCreatePressed}) => {
+const NewOrg = ({ onCreatePressed}) => {
 	
-	const [inputValue, setInputValue] = useState([]);
+	//const [inputValue, setInputValue] = useState([]);
 	
+	
+
     const onFinish = (values) => {
+		
 		console.log('Success:', values);
-		setInputValue(values);
-		console.log({organizations});
+		onCreatePressed(values);
+		//setInputValue = () => onCreatePressed(inputValue);
+		
+		
+		
 				
 	};
 
@@ -81,9 +88,9 @@ const NewOrg = ({organizations = [], onCreatePressed}) => {
                                                 <AvatarOrg/>
                                             </Form.Item>                                            
                                             <Form.Item
-                                                //initialValue = "#7ed321"
+                                                initialValue = "#FFFFFF"
                                                 name= "color">
-                                                    <ColorPicker /> 
+                                                    <ColorPicker colorChoise = "#FFFFFF"/> 
                                             </Form.Item>
                                                              
                                     </Row>
@@ -134,12 +141,7 @@ const NewOrg = ({organizations = [], onCreatePressed}) => {
 								}}
 								>
 								<div className="form-buttons">
-									<Button 
-										onClick = {() =>{
-											setInputValue();
-											onCreatePressed(inputValue);
-											setInputValue([]);
-										}}
+									<Button 										
 										type="primary" 
 										htmlType="submit" className="one-form-button">
 										Valider
@@ -163,11 +165,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onCreatePressed: organization => dispatch(createOrganizationSuccess(organization)),
-	onDisplayAlertClicked: () => dispatch(displayAlert)
-
+	onCreatePressed: organization => dispatch(createOrganizationSuccess(organization))
 });
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewOrg);

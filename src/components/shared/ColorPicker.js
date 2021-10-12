@@ -5,14 +5,13 @@ import { PlusOutlined } from '@ant-design/icons';
 
 
 
-const ColorPicker = () => {
+const ColorPicker = ({colorChoise}) => {
     
     const [color, setColor] = useState('');
     const [backgroundColor, setBackgroundColor] = useState('#fff');
-    
-    
+    colorChoise = {color};    
     const colorSelected = color.hex;
-
+    console.log(colorSelected);
 //Modal
 
 const [isModalVisible, setIsModalVisible] = useState(false);
