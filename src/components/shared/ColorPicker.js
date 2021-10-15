@@ -11,7 +11,7 @@ const ColorPicker = ({colorChoise}) => {
     const [backgroundColor, setBackgroundColor] = useState('#fff');
     colorChoise = {color};    
     const colorSelected = color.hex;
-    console.log(colorSelected);
+    
 //Modal
 
 const [isModalVisible, setIsModalVisible] = useState(false);

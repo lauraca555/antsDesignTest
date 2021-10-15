@@ -4,15 +4,21 @@ import {PageHeader,Form, Button,  Row, Col, Input} from "antd";
 import AvatarOrg from '../shared/AvatarOrg';
 import { createOrganizationSuccess } from '../../actions/actionsOrg'
 import ColorPicker from '../shared/ColorPicker';
+import { useState } from 'react';
 
 	
 		
 
-const NewOrg = ({ onCreatePressed}) => {
+const NewOrg = ({ onCreatePressed }) => {
 	
 	//const [inputValue, setInputValue] = useState([]);
+	const [colorChoise, chooseColor ] = useState("#FFFFFF");
+	console.log(colorChoise);
 	
-	
+	const pickColor = () => {
+		chooseColor(colorChoise);
+		return colorChoise;
+	}
 
     const onFinish = (values) => {
 		
@@ -87,12 +93,11 @@ const NewOrg = ({ onCreatePressed}) => {
                                                 name="avatar" >
                                                 <AvatarOrg/>
                                             </Form.Item>                                            
-                                            <Form.Item
-                                                initialValue = "#FFFFFF"
-                                                name= "color">
-                                                    <ColorPicker colorChoise = "#FFFFFF"/> 
+                                            <ColorPicker colorChoise = {pickColor}/>                 
+                                            <Form.Item                                                
+                                                name= "color"
+												values = {chooseColor}>                                                     
                                             </Form.Item>
-                                                             
                                     </Row>
                                 </Col>
 							</fieldset>
