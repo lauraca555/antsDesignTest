@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Avatar,  Modal } from 'antd';
 import { SketchPicker } from 'react-color';
 import { PlusOutlined } from '@ant-design/icons';
 
 
 
-const ColorPicker = ({colorChoise}) => {
+const ColorPicker = ({colorChoise, colorSelected}) => {
     
-    const [color, setColor] = useState('');
+    const [color, setColor] = useState("");
     const [backgroundColor, setBackgroundColor] = useState('#fff');
-    colorChoise = {color};    
-    const colorSelected = color.hex;
+    colorSelected = color.hex;
+    //useEffect({colorChoise}, [color])
+    
+    
     
 //Modal
 
@@ -56,8 +58,9 @@ const [isModalVisible, setIsModalVisible] = useState(false);
                     <SketchPicker 
                     color = {color}
                     background = {backgroundColor}
-                    onChangeComplete={setBackgroundColor}
-                    onChange={handleChange }
+                    onChangeComplete={setBackgroundColor, colorChoise}
+                    onChange={handleChange  }
+                    
                     />
                 </Modal>
                 

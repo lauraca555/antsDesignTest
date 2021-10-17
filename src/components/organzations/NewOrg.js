@@ -4,7 +4,7 @@ import {PageHeader,Form, Button,  Row, Col, Input} from "antd";
 import AvatarOrg from '../shared/AvatarOrg';
 import { createOrganizationSuccess } from '../../actions/actionsOrg'
 import ColorPicker from '../shared/ColorPicker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 	
 		
@@ -12,19 +12,22 @@ import { useState } from 'react';
 const NewOrg = ({ onCreatePressed }) => {
 	
 	//const [inputValue, setInputValue] = useState([]);
-	const [colorChoise, chooseColor ] = useState("#FFFFFF");
-	console.log(colorChoise);
+	const colorSelect = "#fff"
+	const [colorChoise, chooseColor ] = useState(colorSelect);
+	//const color = colorChoise.hex;
+	//useEffect(()=>{console.log(color)});
 	
-	const pickColor = () => {
-		chooseColor(colorChoise);
-		return colorChoise;
-	}
+	
+	
 
     const onFinish = (values) => {
 		
+		values.color = colorChoise.hex;
+		values.avatar = "non connue"
 		console.log('Success:', values);
+		
 		onCreatePressed(values);
-		//setInputValue = () => onCreatePressed(inputValue);
+		
 		
 		
 		
@@ -58,7 +61,9 @@ const NewOrg = ({ onCreatePressed }) => {
 							}}
 							onFinish={onFinish}
 							onFinishFailed={onFinishFailed}
+							
 							autoComplete="off"
+							
 							>
 							<Col justify="start"   span={20} offset={2} >
 							<fieldset>
@@ -93,10 +98,14 @@ const NewOrg = ({ onCreatePressed }) => {
                                                 name="avatar" >
                                                 <AvatarOrg/>
                                             </Form.Item>                                            
-                                            <ColorPicker colorChoise = {pickColor}/>                 
-                                            <Form.Item                                                
-                                                name= "color"
-												values = {chooseColor}>                                                     
+                                                            
+                                            <Form.Item
+											name= "color"
+											>  
+											<ColorPicker colorChoise = {chooseColor}/>                                              
+                                                
+												
+											                                                     
                                             </Form.Item>
                                     </Row>
                                 </Col>
