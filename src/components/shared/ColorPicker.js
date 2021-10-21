@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import { Avatar,  Modal } from 'antd';
 import { SketchPicker } from 'react-color';
 import { PlusOutlined } from '@ant-design/icons';
 
 
 
-const ColorPicker = ({colorChoise, colorSelected}) => {
+const ColorPicker = ({tryColor}) => {
     
     const [color, setColor] = useState("");
-    const [backgroundColor, setBackgroundColor] = useState('#fff');
-    colorSelected = color.hex;
-    //useEffect({colorChoise}, [color])
+    //const [backgroundColor, setBackgroundColor] = useState(color);
+    //useEffect(()=>{console.log("le color choisi" + color)}, [color]);
+    
+    
     
     
     
@@ -31,7 +32,7 @@ const [isModalVisible, setIsModalVisible] = useState(false);
   };
 
       
-    const handleChange = (clor) => {setColor(clor)};
+    const pickcolor = (clor) => {setColor(clor.hex); console.log(clor.hex)};
 
    
         return (
@@ -45,22 +46,21 @@ const [isModalVisible, setIsModalVisible] = useState(false);
                 </div>
                 <Avatar 
                         shape="square" 
-                        style={{ backgroundColor: `${colorSelected}`}}
-                        color={color.hex}
-                                               
-                    />
+                        style={{ backgroundColor: `${color}`}}/>
 
                 <Modal  
                     visible={isModalVisible} 
                     onOk={handleOk} 
-                    onCancel={handleCancel}>
+                    onCancel={handleCancel}
+                    pickcolor = {pickcolor}>
+                     
 
                     <SketchPicker 
-                    color = {color}
-                    background = {backgroundColor}
-                    onChangeComplete={setBackgroundColor, colorChoise}
-                    onChange={handleChange  }
                     
+                    background = {color}
+                    onChangeComplete={tryColor}
+                    onChange={pickcolor}
+                    color = {color}
                     />
                 </Modal>
                 

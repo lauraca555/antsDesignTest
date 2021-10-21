@@ -4,28 +4,30 @@ import {PageHeader,Form, Button,  Row, Col, Input} from "antd";
 import AvatarOrg from '../shared/AvatarOrg';
 import { createOrganizationSuccess } from '../../actions/actionsOrg'
 import ColorPicker from '../shared/ColorPicker';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 
 	
 		
 
-const NewOrg = ({ onCreatePressed }) => {
+const NewOrg = ({ onCreatePressed, tryColor}) => {
 	
 	//const [inputValue, setInputValue] = useState([]);
-	const colorSelect = "#fff"
-	const [colorChoise, chooseColor ] = useState(colorSelect);
-	//const color = colorChoise.hex;
-	//useEffect(()=>{console.log(color)});
+	
+	
+	const [colorChoise, chooseColor ] = useState([]);
+	tryColor=(colorChoise)=>{
+		chooseColor(colorChoise)
+
+	}
+	
 	
 	
 	
 
     const onFinish = (values) => {
 		
-		values.color = colorChoise.hex;
-		values.avatar = "non connue"
+		values.color = colorChoise.hex;		
 		console.log('Success:', values);
-		
 		onCreatePressed(values);
 		
 		
@@ -94,19 +96,13 @@ const NewOrg = ({ onCreatePressed }) => {
 								{/* Champ logo */}
                                 <Col  span={18} offset={6}>
                                     <Row  justify="space-between">
-                                            <Form.Item                                                                            
-                                                name="avatar" >
-                                                <AvatarOrg/>
-                                            </Form.Item>                                            
-                                                            
-                                            <Form.Item
-											name= "color"
-											>  
-											<ColorPicker colorChoise = {chooseColor}/>                                              
-                                                
-												
-											                                                     
-                                            </Form.Item>
+                                            <AvatarOrg />
+											<Form.Item 
+												name= "color"
+												>
+											<ColorPicker tryColor={tryColor}/> 
+											
+											</Form.Item>
                                     </Row>
                                 </Col>
 							</fieldset>
@@ -114,38 +110,39 @@ const NewOrg = ({ onCreatePressed }) => {
 							<fieldset>
 								<legend><h3>Localisation</h3></legend>
 								
-								{/* Adresse */} 
-								<Form.Item								
-									label="Adresse"
-									name="adresse"
-									>
-									<Input />										
-								</Form.Item>
+									{/* Adresse */} 
+									<Form.Item								
+										label="Adresse"
+										name="adresse"
+										>
+										<Input />										
+									</Form.Item>
 
-								{/* Code postal */} 
-								<Form.Item								
-									label="Code postal"
-									name="zipcode"
-									>
-									<Input />										
-								</Form.Item>
+									{/* Code postal */} 
+									<Form.Item								
+										label="Code postal"
+										name="zipcode"
+										>
+										<Input />										
+									</Form.Item>
 
-								{/* Ville */} 
-								<Form.Item								
-									label="Ville"
-									name="city"
-									>
-									<Input />										
-								</Form.Item>
+									{/* Ville */} 
+									<Form.Item								
+										label="Ville"
+										name="city"
+										>
+										<Input />										
+									</Form.Item>
 
-								{/* Pays */} 
-								<Form.Item								
-									label="Pays"
-									name="country"
-									>
-									<Input />										
-								</Form.Item>
-
+									{/* Pays */} 
+									<Form.Item								
+										label="Pays"
+										name="country"
+										>
+										<Input />	
+																			
+									</Form.Item>
+									
 							</fieldset>
 							</Col>
 							<Form.Item

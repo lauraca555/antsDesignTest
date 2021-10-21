@@ -1,6 +1,7 @@
 import { Upload, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import React, {useState} from 'react';
+import React, { useState} from 'react';
+import { Form } from 'antd';
 
 function getBase64(img, callback) {
     const reader = new FileReader();
@@ -22,54 +23,66 @@ function beforeUpload(file) {
   
   const AvatarOrg = () => {
     const [loadingState, setLoading] = useState(false);
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState("undefined");
+    
+    
+    
 
     
     
     
     function handleChange(info) {
-
+        
         if (info.file.status === 'uploading') {
            setLoading(true);
             return;
           } 
 
-          if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, imageUrl => {
-                setLoading(false); 
-                setImage(imageUrl);
-            }
+        if (info.file.status === 'done') {
+          // Get this url from response in real world.
+          getBase64(info.file.originFileObj, imageUrl => {
+              setLoading(false); 
+              setImage(imageUrl);                
+              
+          }
               
             );
           }
 
       
     };
-  
-    const [loading, imageUrl] = [loadingState, image];    
+    
+    const [loading, imgUrl] = [loadingState, image];    
       const uploadButton = (
         <div>
           {loading ? <LoadingOutlined /> : <PlusOutlined />}
           <div style={{ marginTop: 8 }}>Upload</div>
         </div>
       );
+      
       return (
+        
+        <Form.Item                                                                            
+        name="avatar" 
+        >
+        
         <Upload
           name="avatar"
+          url= 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
           listType="picture-card"
           className="avatar-uploader"
           showUploadList={false}
           action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
           beforeUpload={beforeUpload}
-          onChange={handleChange}
+          onChange={handleChange}>
+          {imgUrl ? <img src={imgUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
           
-        >
-          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
         </Upload>
-        
+        </Form.Item>
         
       );
+    
+
     
   }
 
